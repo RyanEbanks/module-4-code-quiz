@@ -1,4 +1,3 @@
-
 /*
 1. Start Button
 2. Timer 
@@ -104,38 +103,76 @@ startEl.addEventListener("click", function() {
     generateQuestion();
 }, 1000);
 
-//If the first button is clicked it will add 1 to correct score and go to the next question
+//If any of these buttons are clicked and it matches the answer it returns correct else it returns incorrect
 li1.addEventListener("click", function(){
+ 
+if(li1.textContent === "var variable_name = 'Hi';" || li1.textContent === "for(var i = 0; i < 30; i++) {}" || li1.textContent === "groceryProducts[2];" || li1.textContent === "console.log(music.genre);" || li1.textContent === "Document Object Model" || li1.textContent === "<button id= 'start-btn'></div>"){
   correct += 1;
   questionNumber++;
   console.log("Question Number" + questionNumber);
   console.log("Correct" + correct);
   generateQuestion();
+} else {
+  incorrect += 1;
+  questionNumber++;
+  console.log("Question Number" + questionNumber);
+  console.log("Incorrect" + correct);
+  generateQuestion();
+
+}
+
 }, 1000);
 
 //If any of these buttons are clicked it will add incorrect to the score and go to the next question
 li2.addEventListener("click", function(){
-  incorrect += 1;
-  questionNumber++;
-  console.log("Question Number" + questionNumber);
-  console.log("Incorrect" + incorrect);
-  generateQuestion();
+  if(li2.textContent === "for(var i = 0; i < 30; i++) {}" || li2.textContent === "groceryProducts[2];" || li2.textContent === "console.log(music.genre);" || li2.textContent === "Document Object Model" || li2.textContent === "<button id= 'start-btn'></div>"){
+    correct += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Correct" + correct);
+    generateQuestion();
+  } else {
+    incorrect += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Incorrect" + correct);
+    generateQuestion();
+  
+  }
 }, 1000);
 
 li3.addEventListener("click", function(){
-  incorrect += 1;
-  questionNumber++;
-  console.log("Question Number" + questionNumber);
-  console.log("Incorrect" + incorrect);
-  generateQuestion();
+  if(li3.textContent === "var variable_name = 'Hi';" || li3.textContent === "for(var i = 0; i < 30; i++) {}" || li3.textContent === "groceryProducts[2];" || li3.textContent === "console.log(music.genre);" || li3.textContent === "Document Object Model" || li3.textContent === "<button id= 'start-btn'></div>"){
+    correct += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Correct" + correct);
+    generateQuestion();
+  } else {
+    incorrect += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Incorrect" + correct);
+    generateQuestion();
+  
+  };
 }, 1000);
 
 li4.addEventListener("click", function(){
-  incorrect += 1;
-  questionNumber++;
-  console.log("Question Number" + questionNumber);
-  console.log("Incorrect" + incorrect);
-  generateQuestion();
+  if(li4.textContent === "var variable_name = 'Hi';" || li4.textContent === "for(var i = 0; i < 30; i++) {}" || li4.textContent === "groceryProducts[2];" || li4.textContent === "console.log(music.genre);" || li4.textContent === "Document Object Model" || li4.textContent === "<button id= 'start-btn'></div>"){
+    correct += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Correct" + correct);
+    generateQuestion();
+  } else {
+    incorrect += 1;
+    questionNumber++;
+    console.log("Question Number" + questionNumber);
+    console.log("Incorrect" + correct);
+    generateQuestion();
+  
+  }
 }, 1000);
 
 //Function to ask questions
@@ -144,41 +181,39 @@ function generateQuestion() {
   //generating question
 if(questionNumber === 1) {
   questionEl.textContent = "What is the proper way to declare a string variable containing the message Hi? ________";
-  var shuffledAnswer = answer1
-  .map(value => ({value, sort: Math.random()}))
-  .sort((a,b) => a.sort - b.sort)
-  .map(({value}) => value)
+  //This randomizes the information in the array so that they do not appear in the same place.
+  var shuffledAnswer = answer1.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value);
   
   console.log(shuffledAnswer);
   answerSet = shuffledAnswer;
-  //Problem with this is index 0 is still the correct answer
+
   displayQuestion();
 }
 
 if(questionNumber === 2) {
   questionEl.textContent = "Which one of these statements is properly declared?";
-  answerSet = answer2;
+  answerSet = answer2.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value);
   displayQuestion();
 }
 
 if(questionNumber === 3) {
   
   questionEl.textContent = "A list of grocery products have been declared in an array -\n var groceryProducts = ['Eggs', 'Milk', 'Cheese', 'Bacon'];\n Select the statement that would get Cheese from the array. _______________";
-  answerSet = answer3;
+  answerSet = answer3.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value);
   displayQuestion();
 
     }
     
 if(questionNumber === 4) {
     questionEl.textContent = "Console log the genre which belongs to the music object. _________";
-    answerSet = answer4;
+    answerSet = answer4.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value);
     displayQuestion();
     
   } 
   
 if(questionNumber === 5) {
     questionEl.textContent = "What does DOM stand for? ________"
-    answerSet = answer5; 
+    answerSet = answer5.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value);
     displayQuestion();
     
     
@@ -186,7 +221,7 @@ if(questionNumber === 5) {
   
 if(questionNumber === 6) {
     questionEl.textContent = "What div is this statement accessing document.getElementByID('start-btn');? _______"
-    answerSet = answer6; 
+    answerSet = answer6.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value); 
     displayQuestion();
 
   } else {
@@ -195,15 +230,3 @@ if(questionNumber === 6) {
 }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
