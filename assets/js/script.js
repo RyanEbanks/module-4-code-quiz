@@ -29,7 +29,7 @@ var questionNumber = 1;
 var answer1 = ["var variable_name = Hi;",
 "var variable_name = 'Hi';", 
 "var variable_name = ['Hi'];", 
-"variable_name = 'Hi';"];
+"variable_name = 'Hi'"];
 var answer2 = ["for(var i = 0; i < 30; i++) {}",
 "for(var i = 0, i < 30, i++) {}",
 "for(i = 0; i < 30; i++) {}",
@@ -56,10 +56,13 @@ var answer6 = ["<button id= 'start-btn'></div>",
 
 //Function to display the answers in an ordered list
 function displayQuestion() {
+
+//displaying the buttons in a random order (Not working!!!!)
 li1.textContent = answerSet[0]; 
 li2.textContent = answerSet[1];
 li3.textContent = answerSet[2]; 
 li4.textContent = answerSet[3];  
+
 
 //appending ol to question div & appending li to ol
 answerEl.appendChild(li1);
@@ -67,8 +70,12 @@ answerEl.appendChild(li2);
 answerEl.appendChild(li3);
 answerEl.appendChild(li4);
 
+// var shuffledAnswer = answer1
+// .map(value => ({value, sort: Math.random()}))
+// .sort((a,b) => a.sort - b.sort)
+// .map(({value}) => value)
 
-
+// console.log(shuffledAnswer);
 }
   //Creating a list <li> to append in the question div
   var li1 = document.createElement("button");
@@ -134,12 +141,18 @@ li4.addEventListener("click", function(){
 //Function to ask questions
 function generateQuestion() {
 
-if(questionNumber === 1) {
   //generating question
+if(questionNumber === 1) {
   questionEl.textContent = "What is the proper way to declare a string variable containing the message Hi? ________";
-  answerSet = answer1;
+  var shuffledAnswer = answer1
+  .map(value => ({value, sort: Math.random()}))
+  .sort((a,b) => a.sort - b.sort)
+  .map(({value}) => value)
+  
+  console.log(shuffledAnswer);
+  answerSet = shuffledAnswer;
+  //Problem with this is index 0 is still the correct answer
   displayQuestion();
-
 }
 
 if(questionNumber === 2) {
