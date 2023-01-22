@@ -57,6 +57,12 @@ var li2 = document.createElement("button");
 var li3 = document.createElement("button");
 var li4 = document.createElement("button");
 
+//Setting class to the lists to allow me to style it
+li1.setAttribute("class", "answer-btn");
+li2.setAttribute("class", "answer-btn");
+li3.setAttribute("class", "answer-btn");
+li4.setAttribute("class", "answer-btn");
+
 //creating the timer function
 function setTime() {
   var timerInterval = setInterval(function () {

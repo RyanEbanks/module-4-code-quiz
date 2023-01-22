@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <title>Document</title>
 </head>
 <body>
+    <header>
+        <h1>JavaScript Timed Quiz</h1>
+    </header>
     <nav id="navbar">
         <article>
             <a href = "#" id ="view-scores-link">View High Scores</a>
@@ -17,6 +21,7 @@
             <h2 id="timer"></h2>
         </div>
     </nav>
+    <article class="container">
     <div id="view-scores">
         <article id="high-scores">
             <span id= "display-initials"></span>
@@ -33,13 +38,15 @@
         </ol>
     </article>
     <article id="game-over">
-        <h1>All Done!</h1>
+        <h1 class="text-style">All Done!</h1>
         <h3 id="final-score"></h3>
         <label for="initials">Enter Initials: <input type="text" name= "initials" id="initials"></label>
         <button id ="submit-score-btn" class="btn">Submit Score</button>
+        <br>
         <button id ="view-scores-btn" class="btn">View High Scores</button>
         <button id ="clear-scores-btn" class="btn">Clear High Scores</button>
     </article>
+</article>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
