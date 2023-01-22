@@ -8,11 +8,17 @@
 </head>
 <body>
     <nav id="navbar">
-        <div id="view-scores"></div>
+        <article><a href = "#view-scores" id ="view-scores-link">View High Scores</a></article>
         <div id="timer-div">
             <h2 id="timer"></h2>
         </div>
     </nav>
+    <div id="view-scores">
+        <article id="high-scores">
+            <span id= "display-initials"></span>
+            <span id ="display-score"></span>
+        </article>
+    </div>
     <article id="start">
         <button id ="start-btn" class="btn">Start</button>
     </article>
@@ -23,6 +29,10 @@
         </ol>
     </article>
     <article id="game-over">
+        <h1>All Done!</h1>
+        <h3 id="final-score"></h3>
+        <label for="initials">Enter Initials: <input type="text" name= "initials" id="initials"></label>
+        <button id ="submit-score-btn" class="btn">Submit Score</button>
         <button id ="view-scores-btn" class="btn">View High Scores</button>
         <button id ="clear-scores-btn" class="btn">Clear High Scores</button>
     </article>

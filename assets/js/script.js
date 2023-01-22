@@ -10,6 +10,7 @@
 9. When timer reaches 0 game over v
 10. Save Initials and score
 11. View HighScore button
+12. Clear highscore button v
 */
 
 //calling the ids to be used in the program
@@ -20,17 +21,27 @@ var questionEl = document.getElementById("question");
 var questionDiv = document.getElementById("question-div");
 var answerEl = document.getElementById("answer");
 var scoreEl = document.getElementById("view-scores");
+var finalScoreEl = document.getElementById("final-score");
+var initialsEl = document.getElementById("initials");
 var gameEndEl = document.getElementById("game-over");
+var highScoreBtnEl = document.getElementById("view-scores-btn");
+var clearScoreBtnEl = document.getElementById("clear-scores-btn");
+var submitScoreBtnEl = document.getElementById("submit-score-btn");
+var displayInitEl = document.getElementById("display-initials");
+var displayScoreEl = document.getElementById("display-score");
+var highScoresEl = document.getElementById("high-scores");
 
-//Hiding the game over div (To be called again in the gameOver function)
-// gameEndEl.style.display = "none"; 
-
-var time = 60;
+//Global variables to be used
+var time = 60; //Time for the test
 var answerSet = [];
 var correct = 0;
 var incorrect = 0;
 var questionNumber = 1;
 var timeCondition = false; //This is so that the -10 if statement in the setTime() function can only be ran once.
+
+//Game div hidden at the beginning
+gameEndEl.style.display = "none";
+
 //Placing answers in objects.
 var answer1 = ["var variable_name = Hi;",
 "var variable_name = 'Hi';", 
@@ -83,8 +94,6 @@ answerEl.appendChild(li4);
   var li2 = document.createElement("button");
   var li3 = document.createElement("button");
   var li4 = document.createElement("button");
-  
-
   
 
 //creating the timer function
@@ -197,7 +206,6 @@ li4.addEventListener("click", function(){
 
 //Function to ask questions
 function generateQuestion() {
-
 if(questionNumber === 1) {
   questionEl.textContent = "What is the proper way to declare a string variable containing the message Hi? ________";
   //This randomizes the information in the array so that they do not appear in the same place.
@@ -254,8 +262,45 @@ function gameOver() {
    gameEndEl.style.display = "block";
    //All questions are no longer visible to interact with
    questionDiv.style.display = "none";
+   scores();
 }
 
 function scores() {
-  
+  //Puts the amount you got correct into local storage
+  localStorage.setItem("score", correct);
+
+  finalScoreEl.textContent = "Your final Score is: " + correct;
 }
+
+
+
+submitScoreBtnEl.addEventListener("click", function(event) {
+  event.preventDefault(); //stops the page from refreshing
+
+  //retrieving value from input field initials
+ var enteredInitials = document.querySelector("#initials").value;
+
+ if(enteredInitials === ""){
+   alert("Error Initials cannot be blank");
+ } 
+
+ //Save Initials to local storage to be used in view Highscore
+ localStorage.setItem("initials", enteredInitials);
+})
+
+
+highScoreBtnEl.addEventListener("click", function() {
+  var retrieveInitials = localStorage.getItem("initials");
+  var retrieveScores = localStorage.getItem("score");
+
+ // if(!enteredInitials || !) create a case for that FIX!!!!!!!!!
+  displayInitEl.textContent = retrieveInitials;
+  displayScoreEl.textContent = retrieveScores;
+})
+
+//Clears local high score
+clearScoreBtnEl.addEventListener("click", function() {
+  localStorage.clear();
+  //Reloads page to remove text-content
+  location.reload();
+})
