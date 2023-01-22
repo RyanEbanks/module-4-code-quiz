@@ -1,29 +1,36 @@
 /*
-1. Start Button
-2. Timer 
-3. Questions (choose between A-D)
-4. More Questions (choose between A-D)
-5. More Questions (choose between A-D)
-6. Bonus (Add like 6 sets of questions and make it add a random 3).
-7. Incorrect Questions subtracts time from the clock.
-8. When All questions are answered game over
-9. When timer reaches 0 game over
+1. Start Button v
+2. Timer v
+3. Questions (choose between A-D) v
+4. More Questions (choose between A-D) v
+5. More Questions (choose between A-D) v
+6. Bonus (Add like 6 sets of questions and make it add a random 3). v
+7. Incorrect Questions subtracts time from the clock. v
+8. When All questions are answered game over v
+9. When timer reaches 0 game over v
 10. Save Initials and score
 11. View HighScore button
 */
 
 //calling the ids to be used in the program
 var timerEl = document.getElementById("timer");
+var startDiv = document.getElementById("start");
 var startEl = document.getElementById("start-btn");
 var questionEl = document.getElementById("question");
+var questionDiv = document.getElementById("question-div");
 var answerEl = document.getElementById("answer");
+var scoreEl = document.getElementById("view-scores");
+var gameEndEl = document.getElementById("game-over");
+
+//Hiding the game over div (To be called again in the gameOver function)
+// gameEndEl.style.display = "none"; 
 
 var time = 60;
 var answerSet = [];
 var correct = 0;
 var incorrect = 0;
 var questionNumber = 1;
-
+var timeCondition = false; //This is so that the -10 if statement in the setTime() function can only be ran once.
 //Placing answers in objects.
 var answer1 = ["var variable_name = Hi;",
 "var variable_name = 'Hi';", 
@@ -55,7 +62,7 @@ var answer6 = ["<button id= 'start-btn'></div>",
 
 //Function to display the answers in an ordered list
 function displayQuestion() {
-
+  
 //displaying the buttons in a random order (Not working!!!!)
 li1.textContent = answerSet[0]; 
 li2.textContent = answerSet[1];
@@ -69,12 +76,7 @@ answerEl.appendChild(li2);
 answerEl.appendChild(li3);
 answerEl.appendChild(li4);
 
-// var shuffledAnswer = answer1
-// .map(value => ({value, sort: Math.random()}))
-// .sort((a,b) => a.sort - b.sort)
-// .map(({value}) => value)
 
-// console.log(shuffledAnswer);
 }
   //Creating a list <li> to append in the question div
   var li1 = document.createElement("button");
@@ -91,21 +93,36 @@ function setTime() {
         time --;
         timerEl.textContent = time + " :Seconds Remaining";
         if(time === 0) {
-            clearInterval(timerInterval); //stops the execution of the code
-            //end the game here
+          clearInterval(timerInterval); //stops the execution of the code
+          timerEl.textContent = "";
+          gameOver();
+        }
+        
+        if(questionNumber > 6) {
+          clearInterval(timerInterval); //stops the execution of the code
+          timerEl.textContent = "";
+            gameOver();
+        }
+
+        //if incorrect is greater than 0 run -10 but the condition has to be true
+        if(incorrect > 0 && timeCondition) {
+          time = time - 10;
+          timeCondition = false; //reseting the condition to false so it doesn't run again
         }
     }, 1000);
-}
 
+  }
+  
 //making the timer activate when clicking start button
 startEl.addEventListener("click", function() {
     setTime();
     generateQuestion();
+    gameEndEl.style.display = "none";
 }, 1000);
 
 //If any of these buttons are clicked and it matches the answer it returns correct else it returns incorrect
 li1.addEventListener("click", function(){
- 
+
 if(li1.textContent === "var variable_name = 'Hi';" || li1.textContent === "for(var i = 0; i < 30; i++) {}" || li1.textContent === "groceryProducts[2];" || li1.textContent === "console.log(music.genre);" || li1.textContent === "Document Object Model" || li1.textContent === "<button id= 'start-btn'></div>"){
   correct += 1;
   questionNumber++;
@@ -115,6 +132,7 @@ if(li1.textContent === "var variable_name = 'Hi';" || li1.textContent === "for(v
 } else {
   incorrect += 1;
   questionNumber++;
+  timeCondition = true; //this is to run the -10 seconds from the timer.
   console.log("Question Number" + questionNumber);
   console.log("Incorrect" + correct);
   generateQuestion();
@@ -123,7 +141,6 @@ if(li1.textContent === "var variable_name = 'Hi';" || li1.textContent === "for(v
 
 }, 1000);
 
-//If any of these buttons are clicked it will add incorrect to the score and go to the next question
 li2.addEventListener("click", function(){
   if(li2.textContent === "for(var i = 0; i < 30; i++) {}" || li2.textContent === "groceryProducts[2];" || li2.textContent === "console.log(music.genre);" || li2.textContent === "Document Object Model" || li2.textContent === "<button id= 'start-btn'></div>"){
     correct += 1;
@@ -134,6 +151,7 @@ li2.addEventListener("click", function(){
   } else {
     incorrect += 1;
     questionNumber++;
+    timeCondition = true;
     console.log("Question Number" + questionNumber);
     console.log("Incorrect" + correct);
     generateQuestion();
@@ -151,6 +169,7 @@ li3.addEventListener("click", function(){
   } else {
     incorrect += 1;
     questionNumber++;
+    timeCondition = true;
     console.log("Question Number" + questionNumber);
     console.log("Incorrect" + correct);
     generateQuestion();
@@ -168,6 +187,7 @@ li4.addEventListener("click", function(){
   } else {
     incorrect += 1;
     questionNumber++;
+    timeCondition = true;
     console.log("Question Number" + questionNumber);
     console.log("Incorrect" + correct);
     generateQuestion();
@@ -178,7 +198,6 @@ li4.addEventListener("click", function(){
 //Function to ask questions
 function generateQuestion() {
 
-  //generating question
 if(questionNumber === 1) {
   questionEl.textContent = "What is the proper way to declare a string variable containing the message Hi? ________";
   //This randomizes the information in the array so that they do not appear in the same place.
@@ -224,9 +243,19 @@ if(questionNumber === 6) {
     answerSet = answer6.map(value => ({value, sort: Math.random()})).sort((a,b) => a.sort - b.sort).map(({value}) => value); 
     displayQuestion();
 
-  } else {
-    //game over
-    return ;
+  } 
+
 }
 
+function gameOver() {
+  //Start Button Disappears
+   startDiv.style.display = "none";
+   //Buttons to view & edit scores appear
+   gameEndEl.style.display = "block";
+   //All questions are no longer visible to interact with
+   questionDiv.style.display = "none";
+}
+
+function scores() {
+  
 }
