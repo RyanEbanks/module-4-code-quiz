@@ -14,15 +14,14 @@ var clearScoreBtnEl = document.getElementById("clear-scores-btn");
 var submitScoreBtnEl = document.getElementById("submit-score-btn");
 var displayInitEl = document.getElementById("display-initials");
 var displayScoreEl = document.getElementById("display-score");
-// var highScoresEl = document.getElementById("high-scores");
 var highScoreLink = document.getElementById("view-scores-link");
 var mainEl = document.getElementById("main-screen");
-// var highScoreTabEl = document.getElementById("high-scores");
 
 //Global variables to be used
 var time = 61; //Time for the test set at 61 so when the timer appears it starts from 60
 var answerSet = [];
 var correct = 0;
+var incorrect = 0; //If incorrect > 0 then it will minus 10 seconds for that one action
 var questionNumber = 1;
 var timeCondition = false; //This is so that the -10 if statement in the setTime() function can only be ran once.
 
@@ -30,7 +29,6 @@ var timeCondition = false; //This is so that the -10 if statement in the setTime
 gameEndEl.style.display = "none"; 
 questionDiv.style.display = "none";
 scoreEl.style.display = "none";
-
 
 //Placing answers in objects.
 var answer1 = ["var variable_name = Hi;", "var variable_name = 'Hi';", "var variable_name = ['Hi'];", "variable_name = 'Hi'"];
@@ -89,7 +87,6 @@ function setTime() {
       timeCondition = false; //reseting the condition to false so it doesn't run again
     }
   }, 1000);
-
 }
 
 //making the timer activate when clicking start button
@@ -107,10 +104,10 @@ li1.addEventListener("click", function () {
     questionNumber++;
     generateQuestion();
   } else {
+    incorrect += 1;
     questionNumber++;
     timeCondition = true; //this is to run the -10 seconds from the timer.
     generateQuestion();
-
   }
 
 }, 1000);
@@ -121,10 +118,10 @@ li2.addEventListener("click", function () {
     questionNumber++;
     generateQuestion();
   } else {
+    incorrect += 1;
     questionNumber++;
     timeCondition = true;
     generateQuestion();
-
   }
 }, 1000);
 
@@ -134,10 +131,10 @@ li3.addEventListener("click", function () {
     questionNumber++;
     generateQuestion();
   } else {
+    incorrect += 1;
     questionNumber++;
     timeCondition = true;
     generateQuestion();
-
   };
 }, 1000);
 
@@ -147,10 +144,10 @@ li4.addEventListener("click", function () {
     questionNumber++;
     generateQuestion();
   } else {
+    incorrect += 1;
     questionNumber++;
     timeCondition = true;
     generateQuestion();
-
   }
 }, 1000);
 
@@ -159,11 +156,7 @@ function generateQuestion() {
   if (questionNumber === 1) {
     questionEl.textContent = "1. What is the proper way to declare a string variable containing the message Hi? ________";
     //This randomizes the information in the array so that they do not appear in the same place.
-    var shuffledAnswer = answer1.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
-
-    console.log(shuffledAnswer);
-    answerSet = shuffledAnswer;
-
+    answerSet = answer1.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
   }
 
@@ -202,9 +195,7 @@ function generateQuestion() {
     displayQuestion();
 
   }
-
 }
-
 
 function gameOver() {
   //Start Button Disappears
@@ -216,14 +207,13 @@ function gameOver() {
   scores();
 }
 
-
 function scores() {
   //Puts the amount you got correct into local storage
   localStorage.setItem("score", correct);
   finalScoreEl.textContent = "Your final Score is: " + correct;
 }
 
-
+//This submits the score
 submitScoreBtnEl.addEventListener("click", function (event) {
   event.preventDefault(); //stops the page from refreshing
 
@@ -251,15 +241,11 @@ submitScoreBtnEl.addEventListener("click", function (event) {
 highScoreBtnEl.addEventListener("click", function() {
   scoreEl.style.display = "block";
   var retrieveInitials1 = localStorage.getItem("initials");
-  var retrieveScores1 = localStorage.getItem("score");
-
   displayInitEl.textContent = retrieveInitials1;
-  displayScoreEl.textContent = retrieveScores1;
 });
 
 //Clears local high score
 clearScoreBtnEl.addEventListener("click", function () {
-
   localStorage.clear();
   //Reloads page to remove text-content
   location.reload();
@@ -269,12 +255,10 @@ clearScoreBtnEl.addEventListener("click", function () {
 highScoreLink.addEventListener("click", function () {
   scoreEl.style.display = "block";
   var retrieveInitials2 = localStorage.getItem("initials");
-  var retrieveScores2 = localStorage.getItem("score");
-
   displayInitEl.textContent = retrieveInitials2;
-  displayScoreEl.textContent = retrieveScores2;
 })
 
+//Refreshes the page and carries you back to start
 mainEl.addEventListener("click", function() {
   location.reload();
 })
