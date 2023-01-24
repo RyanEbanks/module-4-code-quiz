@@ -2,17 +2,18 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     line-height: 1.5;
     font-size: 1.2rem;
-    background-color: var(--light-orange);
 }
 
 :root {
-    --white: #fff;
+    --black: #000000;
+    --white: rgb(240, 240, 240);
     --shadow: #191919;
-    --orange: #f9b872;
-    --blue-highlight-text: #2776EA;
-    --darker-blue: #1F5CB8;
-    --light-orange: #fae7a5;
-    --lightblue: #b6e1e7;
+    --purple: #cf9fff;
+    --light-purple: #dbb8ff;
+    --light-purple-background: #efdfff;
+    --dark-purple: #885db3;
+    --gold: #b1b34b;
+    --yellow: #feff9e;
 }
 
 header{
@@ -20,21 +21,23 @@ header{
     width: 100%;
     display: inline-block;
     text-align: center;
+    background: var(--dark-purple);
+    text-shadow: 1px 1px 2px var(--shadow);
+    color: var(--white);
 }
 
-.container {
-    display: flex;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-    border: 1px solid;
-}
+/* body {
+    background: var(--light-purple-background);
+} */
+
 .btn, .answer-btn {
-    background-color: var(--orange);
+    background-color: var(--dark-purple);
     border: solid;
     border-color: transparent;
     border-radius: 3px;
     padding: 10px;
+    text-shadow: 2px 2px 3px var(--shadow);
+    color: var(--white);
 }
 
 /*Buttons generated in css*/
@@ -46,10 +49,10 @@ header{
 
 .btn:hover, .answer-btn:hover {
     border: 1px solid;
+    border-color: var(--purple);
     box-shadow: var(--shadow);
-    outline-color: var(--lightblue);
-    outline-offset: 15px;
-    text-shadow: 1px 1px 2px var(--shadow);
+    background-color: var(--purple);
+    outline-offset: 1px;
 }
 
 .text-style {
@@ -57,10 +60,11 @@ header{
 }
 
 #view-scores-link:hover , #main-screen:hover {
-    box-shadow: var(--shadow);
-    outline-color: var(--lightblue);
+    outline-color: var(--dark-purple);
     outline-offset: 15px;
-    text-shadow: 1px 1px 2px var(--shadow);
+    text-shadow: 1px 1px 2px var(--black);
+    color: var(--gold);
+    text-decoration: underline;
 }
 
 #view-scores-link , #main-screen {
@@ -68,19 +72,91 @@ header{
    padding-right: 30px;
 }
 
+.links {
+    text-align: center;
+    margin: 2% 0 2% 0;
+}
+/*Divs*/
 #nav-bar{ 
-    display: inline-block;
+    text-align: center;
     padding: 10px 25px;
 }
 
 
-#view-scores, #start, #game-over {
-    border: solid 1px;
-    display: flex;
-    align-content: center;
+#view-scores, #game-over{
+    background: var(--light-purple-background);
+    width: 80%;
+    border: 1px solid var(--light-purple);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#view-scores {
+    height: auto;
+    margin-bottom: 2%;
+}
+
+#game-over {
+    height: 40vh;
 }
 
 #start {
-    border: 2px solid;
-    margin: 10px 10px 10px 10px;
+    text-align: center;
+  
+    margin: 30px 10px 30px 10px;
 }
+
+#question-div {
+    background: var(--light-purple-background);
+    border: 1px solid var(--light-purple);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 80%;
+    height: 50vh;
+    text-align: center;
+    color: #fff;
+}
+.score-btn-container, .submit-container {
+    margin: auto;
+    padding: 10px;
+}
+
+/* In gameover container */
+.text-style {
+    text-align: center;
+}
+
+.submit-container, .score-btn-container {
+    background: var(--light-purple-background);
+    text-align: center;
+    margin: 3% 0 3% 0;
+}
+/*Still need to edit final score*/
+
+#timer {
+    text-align: right;
+}
+
+.button-aside {
+    flex: 40%;
+    text-align: center;
+}
+
+#text1, #text2, #text3, #text4, .text5 {
+    flex: 60%;
+}
+
+#question {
+    color: var(--black);
+}
+
+#final-score, #high-scores {
+    text-align: center;
+}
+

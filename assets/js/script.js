@@ -14,20 +14,23 @@ var clearScoreBtnEl = document.getElementById("clear-scores-btn");
 var submitScoreBtnEl = document.getElementById("submit-score-btn");
 var displayInitEl = document.getElementById("display-initials");
 var displayScoreEl = document.getElementById("display-score");
-var highScoresEl = document.getElementById("high-scores");
+// var highScoresEl = document.getElementById("high-scores");
 var highScoreLink = document.getElementById("view-scores-link");
 var mainEl = document.getElementById("main-screen");
+// var highScoreTabEl = document.getElementById("high-scores");
 
 //Global variables to be used
-var time = 60; //Time for the test
+var time = 61; //Time for the test set at 61 so when the timer appears it starts from 60
 var answerSet = [];
 var correct = 0;
-var incorrect = 0;
 var questionNumber = 1;
 var timeCondition = false; //This is so that the -10 if statement in the setTime() function can only be ran once.
 
 //Game div hidden at the beginning
-gameEndEl.style.display = "none";
+gameEndEl.style.display = "none"; 
+questionDiv.style.display = "none";
+scoreEl.style.display = "none";
+
 
 //Placing answers in objects.
 var answer1 = ["var variable_name = Hi;", "var variable_name = 'Hi';", "var variable_name = ['Hi'];", "variable_name = 'Hi'"];
@@ -94,6 +97,7 @@ startEl.addEventListener("click", function () {
   setTime();
   generateQuestion();
   gameEndEl.style.display = "none";
+  questionDiv.style.display = "block";
 }, 1000);
 
 //If any of these buttons are clicked and it matches the answer it returns correct else it returns incorrect
@@ -101,15 +105,10 @@ li1.addEventListener("click", function () {
   if (li1.textContent === "var variable_name = 'Hi';" || li1.textContent === "for(var i = 0; i < 30; i++) {}" || li1.textContent === "groceryProducts[2];" || li1.textContent === "console.log(music.genre);" || li1.textContent === "Document Object Model" || li1.textContent === "<button id= 'start-btn'></div>") {
     correct += 1;
     questionNumber++;
-    console.log("Question Number" + questionNumber);
-    console.log("Correct" + correct);
     generateQuestion();
   } else {
-    incorrect += 1;
     questionNumber++;
     timeCondition = true; //this is to run the -10 seconds from the timer.
-    console.log("Question Number" + questionNumber);
-    console.log("Incorrect" + correct);
     generateQuestion();
 
   }
@@ -120,15 +119,10 @@ li2.addEventListener("click", function () {
   if (li2.textContent === "for(var i = 0; i < 30; i++) {}" || li2.textContent === "groceryProducts[2];" || li2.textContent === "console.log(music.genre);" || li2.textContent === "Document Object Model" || li2.textContent === "<button id= 'start-btn'></div>") {
     correct += 1;
     questionNumber++;
-    console.log("Question Number" + questionNumber);
-    console.log("Correct" + correct);
     generateQuestion();
   } else {
-    incorrect += 1;
     questionNumber++;
     timeCondition = true;
-    console.log("Question Number" + questionNumber);
-    console.log("Incorrect" + correct);
     generateQuestion();
 
   }
@@ -138,15 +132,10 @@ li3.addEventListener("click", function () {
   if (li3.textContent === "var variable_name = 'Hi';" || li3.textContent === "for(var i = 0; i < 30; i++) {}" || li3.textContent === "groceryProducts[2];" || li3.textContent === "console.log(music.genre);" || li3.textContent === "Document Object Model" || li3.textContent === "<button id= 'start-btn'></div>") {
     correct += 1;
     questionNumber++;
-    console.log("Question Number" + questionNumber);
-    console.log("Correct" + correct);
     generateQuestion();
   } else {
-    incorrect += 1;
     questionNumber++;
     timeCondition = true;
-    console.log("Question Number" + questionNumber);
-    console.log("Incorrect" + correct);
     generateQuestion();
 
   };
@@ -156,15 +145,10 @@ li4.addEventListener("click", function () {
   if (li4.textContent === "var variable_name = 'Hi';" || li4.textContent === "for(var i = 0; i < 30; i++) {}" || li4.textContent === "groceryProducts[2];" || li4.textContent === "console.log(music.genre);" || li4.textContent === "Document Object Model" || li4.textContent === "<button id= 'start-btn'></div>") {
     correct += 1;
     questionNumber++;
-    console.log("Question Number" + questionNumber);
-    console.log("Correct" + correct);
     generateQuestion();
   } else {
-    incorrect += 1;
     questionNumber++;
     timeCondition = true;
-    console.log("Question Number" + questionNumber);
-    console.log("Incorrect" + correct);
     generateQuestion();
 
   }
@@ -173,7 +157,7 @@ li4.addEventListener("click", function () {
 //Function to ask questions
 function generateQuestion() {
   if (questionNumber === 1) {
-    questionEl.textContent = "What is the proper way to declare a string variable containing the message Hi? ________";
+    questionEl.textContent = "1. What is the proper way to declare a string variable containing the message Hi? ________";
     //This randomizes the information in the array so that they do not appear in the same place.
     var shuffledAnswer = answer1.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
 
@@ -184,28 +168,28 @@ function generateQuestion() {
   }
 
   if (questionNumber === 2) {
-    questionEl.textContent = "Which one of these statements is properly declared?";
+    questionEl.textContent = "2. Which one of these statements is properly declared?";
     answerSet = answer2.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
   }
 
   if (questionNumber === 3) {
 
-    questionEl.textContent = "A list of grocery products have been declared in an array -\n var groceryProducts = ['Eggs', 'Milk', 'Cheese', 'Bacon'];\n Select the statement that would get Cheese from the array. _______________";
+    questionEl.textContent = "3. A list of grocery products have been declared in an array -\n var groceryProducts = ['Eggs', 'Milk', 'Cheese', 'Bacon'];\n Select the statement that would get Cheese from the array. _______________";
     answerSet = answer3.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
 
   }
 
   if (questionNumber === 4) {
-    questionEl.textContent = "Console log the genre which belongs to the music object. _________";
+    questionEl.textContent = "4. Console log the genre which belongs to the music object. _________";
     answerSet = answer4.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
 
   }
 
   if (questionNumber === 5) {
-    questionEl.textContent = "What does DOM stand for? ________"
+    questionEl.textContent = "5. What does DOM stand for? ________"
     answerSet = answer5.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
 
@@ -213,7 +197,7 @@ function generateQuestion() {
   }
 
   if (questionNumber === 6) {
-    questionEl.textContent = "What div is this statement accessing document.getElementByID('start-btn');? _______"
+    questionEl.textContent = "6. What div is this statement accessing document.getElementByID('start-btn');? _______"
     answerSet = answer6.map(value => ({ value, sort: Math.random() })).sort((a, b) => a.sort - b.sort).map(({ value }) => value);
     displayQuestion();
 
@@ -224,11 +208,11 @@ function generateQuestion() {
 
 function gameOver() {
   //Start Button Disappears
-  startDiv.style.display = "none";
+  startDiv.style.display = "none"; 
   //Buttons to view & edit scores appear
-  gameEndEl.style.display = "block";
+  gameEndEl.style.display = "block"; 
   //All questions are no longer visible to interact with
-  questionDiv.style.display = "none";
+  questionDiv.style.display = "none"; 
   scores();
 }
 
@@ -248,30 +232,42 @@ submitScoreBtnEl.addEventListener("click", function (event) {
 
   if (enteredInitials === "") {
     alert("Error Initials cannot be blank");
+    return;
+  } 
+  var retrieveInitials = localStorage.getItem("initials");
+  //separates the initials and the score with a dash
+  var newInitials = enteredInitials + "-" + correct;
+
+  if(retrieveInitials) {
+    //separates each value to print with a comma
+    newInitials += ", " + retrieveInitials;
   }
 
   //Save Initials to local storage to be used in view Highscore
-  localStorage.setItem("initials", enteredInitials);
+  localStorage.setItem("initials", newInitials);
 })
 
+//This Displays the scores that were saved in local storage
+highScoreBtnEl.addEventListener("click", function() {
+  scoreEl.style.display = "block";
+  var retrieveInitials1 = localStorage.getItem("initials");
+  var retrieveScores1 = localStorage.getItem("score");
 
-highScoreBtnEl.addEventListener("click", function () {
-  var retrieveInitials = localStorage.getItem("initials");
-  var retrieveScores = localStorage.getItem("score");
-
-  // if(!enteredInitials || !) create a case for that FIX!!!!!!!!!
-  displayInitEl.textContent = retrieveInitials;
-  displayScoreEl.textContent = retrieveScores;
-})
+  displayInitEl.textContent = retrieveInitials1;
+  displayScoreEl.textContent = retrieveScores1;
+});
 
 //Clears local high score
 clearScoreBtnEl.addEventListener("click", function () {
+
   localStorage.clear();
   //Reloads page to remove text-content
   location.reload();
 })
 
+//This Displays the scores that were saved in local storage on another clickable event
 highScoreLink.addEventListener("click", function () {
+  scoreEl.style.display = "block";
   var retrieveInitials2 = localStorage.getItem("initials");
   var retrieveScores2 = localStorage.getItem("score");
 
