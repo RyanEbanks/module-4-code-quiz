@@ -1,7 +1,7 @@
 # module-4-code-quiz
 
 ## Deployment Link
-[Click Here!]()
+[Click Here!](https://ryanebanks.github.io/module-4-code-quiz/)
 
 ## Description
 This challenge requires me utilize web api's to make a code quiz which will store the users high score after completion.
@@ -14,7 +14,7 @@ This project will be used to show my understanding of web api's functionalities 
 
 ## Animation Of Functionality
 
-
+![module-4-gif](https://user-images.githubusercontent.com/43324378/214432546-74d25d40-6594-4f42-a78f-7b332fbf2744.gif)
 
 ## Credits
 N/A
